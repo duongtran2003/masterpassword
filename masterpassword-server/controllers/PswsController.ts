@@ -39,12 +39,26 @@ class PasswordController {
         then((passwords) => {
             if (!passwords.length) {
                 //not found => create new record
-                res.statusCode = 200;
-                Password.create(newPassword);
-                return res.json({
-                    ...newPassword,
-                    message: "success",
-                });
+                //handle blank password later
+                Password.create(newPassword)
+                .then((created) => {
+                    res.statusCode = 200;
+                    return res.json({
+                        site,
+                        email,
+                        password,
+                        message: "success",
+                    }); 
+                })
+                .catch((error) => {
+                    res.statusCode = 500;
+                    return res.json({
+                        site: "",
+                        email: "",
+                        password: "",
+                        message: error,
+                    });
+                })
             }
             else {
                 //found duplicated => just return
@@ -56,6 +70,72 @@ class PasswordController {
                     message: "Duplicated",
                 });
             }
+        })
+        .catch((error) => {
+            res.statusCode = 500;
+            return res.json({
+                site: "",
+                email: "",
+                password: "",
+                message: error,
+            });
+        });
+    }
+    edit(req: Request, res: Response) {
+        //at this point, only allow client to edit password
+        //handle blank password later
+        const {site, email, password} = req.body as IPasswordJSON;
+        let filter: {
+            site: string,
+            email: string,
+        } = {
+            site,
+            email,
+        }
+        let update: {
+            password: string | undefined,
+        } = {
+            password
+        }
+        Password.findOneAndUpdate(filter, update)
+        .then((updated) => {
+            //handle non-existing record in frontend; 
+            res.statusCode = 200;
+            return res.json({
+                site,
+                email,
+                password,
+                message: "success",
+            });
+        })
+        .catch((error) => {
+            res.statusCode = 500;
+            return res.json({
+                site: "",
+                email: "",
+                password: "",
+                message: error,
+            });
+        });
+    }
+    delete(req: Request, res: Response) {
+        const {site, email, password} = req.body as IPasswordJSON;
+        let filter: {
+            site: string,
+            email: string
+        } = {
+            site,
+            email,
+        }
+        Password.findOneAndDelete(filter)
+        .then((deleted) => {
+            res.statusCode = 200;
+            return res.json({
+                site, 
+                email,
+                password,
+                message: "success",
+            });
         })
         .catch((error) => {
             res.statusCode = 500;
