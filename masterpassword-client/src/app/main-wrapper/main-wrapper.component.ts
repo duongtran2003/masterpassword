@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiServiceService } from '../api-service.service';
+import { IPassword } from '../IPassword';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-wrapper',
@@ -6,34 +9,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-wrapper.component.css']
 })
 export class MainWrapperComponent implements OnInit {
-  fakeInfo: {
-    site: string,
-    email: string,
-    password: string,
-  }[] = [
-    {
-      site: "pornhub",
-      email: "dt1@ph.gov",
-      password: "12345678",
-    },
-    {
-      site: "xvideos",
-      email: "dt1@xv.gov",
-      password: "987654321",
-    },
-    {
-      site: "redtube",
-      email: "dt1@rt.gov",
-      password: "456123789",
-    }
-  ]
+  entries: IPassword[] = [];
+  constructor (private apiService: ApiServiceService) {}
+  errorDesc: string = "";
   ngOnInit(): void {
-    
+    this.apiService.get('index').subscribe({
+      next: (response: any) => {
+        if (!response.length) {
+          this.errorDesc = "You don't have any saved password";
+        }
+        else {
+          for (let entry of response) {
+            this.entries.push(entry);
+          }
+        }
+      },
+      error: (err) => {
+        this.errorDesc = "Server Error";
+      }
+    })
   }
-  editRecord(email: string): void {
-    console.log("emitted event caught: Edit " + email);
+  editRecord(): void {
+    console.log("emitted event caught: Edit");
   }
-  deleteRecord(email: string): void {
-    console.log("emitted event caught: Delete " + email);
+  deleteRecord(): void {
+    console.log("emitted event caught: Delete");
   }
 }

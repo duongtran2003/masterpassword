@@ -12,13 +12,25 @@ class PasswordController {
         Password.find({})
         .then((passwords) => {
             res.statusCode = 200;
-            return res.json(passwords);
+            let newPasswords: IPasswordJSON[] = [];
+            for (let password of passwords) {
+                newPasswords.push({
+                    site: password.site,
+                    email: password.email,
+                    password: password.password,
+                })
+            }
+            return res.json(newPasswords);
         })
         .catch((error) => {
             res.statusCode = 500;
-            return res.json({
-                message: error,
-            })
+            return res.json([
+                {
+                    site: "",
+                    email: "",
+                    password: "",
+                }
+            ]);
         });
     }
     create(req: Request, res: Response): void {
@@ -47,7 +59,6 @@ class PasswordController {
                         site,
                         email,
                         password,
-                        message: "success",
                     }); 
                 })
                 .catch((error) => {
@@ -56,7 +67,6 @@ class PasswordController {
                         site: "",
                         email: "",
                         password: "",
-                        message: error,
                     });
                 })
             }
@@ -67,7 +77,6 @@ class PasswordController {
                     site: "",
                     email: "",
                     password: "",
-                    message: "Duplicated",
                 });
             }
         })
@@ -77,7 +86,6 @@ class PasswordController {
                 site: "",
                 email: "",
                 password: "",
-                message: error,
             });
         });
     }
@@ -105,7 +113,6 @@ class PasswordController {
                 site,
                 email,
                 password,
-                message: "success",
             });
         })
         .catch((error) => {
@@ -114,7 +121,6 @@ class PasswordController {
                 site: "",
                 email: "",
                 password: "",
-                message: error,
             });
         });
     }
@@ -134,7 +140,6 @@ class PasswordController {
                 site, 
                 email,
                 password,
-                message: "success",
             });
         })
         .catch((error) => {
@@ -143,7 +148,6 @@ class PasswordController {
                 site: "",
                 email: "",
                 password: "",
-                message: error,
             });
         });
     }

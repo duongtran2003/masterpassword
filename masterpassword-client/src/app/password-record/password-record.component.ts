@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-password-record',
   templateUrl: './password-record.component.html',
@@ -23,10 +23,11 @@ export class PasswordRecordComponent {
 
   editIcon = faPenToSquare;
   trashIcon = faTrashCan;
+  copyIcon = faClipboard;
   editRecord(): void {
-    this.onEditClick.emit("placeholder@mock.gov");
+    this.onEditClick.emit();
   }
   deleteRecord(): void {
-    this.onDeleteClick.emit("placeholder@mock.gov");
+    this.onDeleteClick.emit();
   }
 }
