@@ -10,13 +10,16 @@ import { Observable } from 'rxjs';
 })
 export class MainWrapperComponent implements OnInit {
   entries: IPassword[] = [];
-  constructor (private apiService: ApiServiceService) {}
-  errorDesc: string = "";
+  constructor(private apiService: ApiServiceService) { }
+  queryError: string = "";
   ngOnInit(): void {
+    this.fetchEntries();
+  }
+  fetchEntries(): void {
     this.apiService.get('index').subscribe({
-      next: (response: any) => {
+      next: (response: IPassword[]) => {
         if (!response.length) {
-          this.errorDesc = "You don't have any saved password";
+          this.queryError = "You don't have any saved password";
         }
         else {
           for (let entry of response) {
@@ -25,14 +28,22 @@ export class MainWrapperComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.errorDesc = "Server Error";
+        this.queryError = "Server Error";
+      }
+    });
+  }
+  editRecord(info: IPassword): void {
+    //supposed to reveal a form to change password. atm just gonna log the info to test the event emitter 
+    console.log(info.site);
+  }
+  deleteRecord(info: IPassword): void {
+    this.apiService.post('delete', info).subscribe({
+      next: (response: IPassword) => {
+        this.fetchEntries();
+      },
+      error: (err) => {
+
       }
     })
-  }
-  editRecord(): void {
-    console.log("emitted event caught: Edit");
-  }
-  deleteRecord(): void {
-    console.log("emitted event caught: Delete");
   }
 }

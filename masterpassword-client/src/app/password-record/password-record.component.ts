@@ -25,9 +25,9 @@ export class PasswordRecordComponent {
   trashIcon = faTrashCan;
   copyIcon = faClipboard;
   editRecord(): void {
-    this.onEditClick.emit();
+    this.onEditClick.emit(this.info);
   }
   deleteRecord(): void {
-    this.onDeleteClick.emit();
+    this.onDeleteClick.emit(this.info);
   }
 }
