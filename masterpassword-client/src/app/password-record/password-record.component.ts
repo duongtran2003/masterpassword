@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { faClipboard, faPenToSquare, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 @Component({
   selector: 'app-password-record',
   templateUrl: './password-record.component.html',
@@ -28,6 +30,8 @@ export class PasswordRecordComponent {
   checkIcon = faSquareCheck;
   editInput: string = "";
   isEditVisible: boolean = false;
+
+  constructor(private clipboard: Clipboard) {}
   onInput(val: string) {
     this.editInput = val;
   }
@@ -46,5 +50,8 @@ export class PasswordRecordComponent {
   }
   deleteRecord(): void {
     this.onDeleteClick.emit(this.info);
+  }
+  copyPassword(): void {
+    this.clipboard.copy(this.info.password);
   }
 }
