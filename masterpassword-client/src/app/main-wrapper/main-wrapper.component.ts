@@ -33,8 +33,20 @@ export class MainWrapperComponent implements OnInit {
     });
   }
   editRecord(info: IPassword): void {
-    //supposed to reveal a form to change password. atm just gonna log the info to test the event emitter 
-    console.log(info.site);
+    this.apiService.put('update', info).subscribe({
+      next: (response: IPassword) => {
+        for (let entry of this.entries) {
+          if (entry.site == response.site && entry.email == response.email) {
+            entry.password = response.password;
+            break;
+          }
+        }
+      },
+      error: (err) => {
+        //fire a toast message ( not implemented yet )
+      }
+    });
+    console.log(info);
   }
   createRecord(info: IPassword): void {
     this.apiService.post('create', info).subscribe({
