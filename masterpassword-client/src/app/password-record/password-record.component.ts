@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { faClipboard, faPenToSquare, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faPenToSquare, faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
@@ -28,12 +28,17 @@ export class PasswordRecordComponent {
   trashIcon = faTrashCan;
   copyIcon = faClipboard;
   checkIcon = faSquareCheck;
+  cancelIcon = faSquareXmark;
   editInput: string = "";
   isEditVisible: boolean = false;
+  isDeleteVisible: boolean = false;
 
   constructor(private clipboard: Clipboard) {}
   onInput(val: string) {
     this.editInput = val;
+  }
+  deleteConfirmationToggle(): void {
+    this.isDeleteVisible = !this.isDeleteVisible;
   }
   showEditRecord(): void {
     this.isEditVisible = !this.isEditVisible;
