@@ -1,14 +1,15 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { faClipboard, faPenToSquare, faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-password-record',
   templateUrl: './password-record.component.html',
   styleUrls: ['./password-record.component.css']
 })
-export class PasswordRecordComponent {
+export class PasswordRecordComponent implements OnInit {
 
   @Input() index!: number;
   @Input() info: {
@@ -33,7 +34,10 @@ export class PasswordRecordComponent {
   isEditVisible: boolean = false;
   isDeleteVisible: boolean = false;
 
-  constructor(private clipboard: Clipboard) {}
+  constructor(private clipboard: Clipboard, private toast: ToastService) {}
+  ngOnInit(): void {
+    console.log("rendered");
+  }
   onInput(val: string) {
     this.editInput = val;
   }
@@ -41,6 +45,7 @@ export class PasswordRecordComponent {
     this.isDeleteVisible = !this.isDeleteVisible;
   }
   showEditRecord(): void {
+    this.toast.showToast(['toastr', 'toastr-success'], "test");
     this.isEditVisible = !this.isEditVisible;
   }
   editRecord(): void {

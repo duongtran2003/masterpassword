@@ -1,0 +1,6 @@
+<div [@toastTrigger]="(toast.showsToastObs | async) ? 'open' : 'close'" [class]="toast.toastStateObs | async">
+    <div style="max-width: 160px;">{{ toast.toastMsgObs | async}}</div>
+    <a class="close-btn cursor-pointer" (click)="dismiss()">
+        <small>Dismiss</small>
+    </a>
+</div>

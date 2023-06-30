@@ -8,10 +8,16 @@ html {
     min-height: 100%;
 }
 body {
-    background: rgb(255,113,25);
-    background: linear-gradient(315deg, rgba(255,113,25,1) 0%, rgba(65,255,0,1) 100%);
+    background: wheat;
+    width: 100%;
+    overflow: hidden;
 }
 
 app-root {
     margin-bottom: 10rem;
+    z-index: 1;
+}
+
+.toastr {
+    z-index: 2;
 }
