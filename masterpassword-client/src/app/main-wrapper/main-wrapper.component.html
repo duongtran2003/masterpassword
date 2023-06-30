@@ -1,6 +1,6 @@
+<app-create-form (onNewRecord)="createRecord($event)"></app-create-form>
 <app-password-record *ngFor="let record of entries; let i = index" [info]="record" [index]="i"
-    (onEditClick)="editRecord($event)"
-    (onDeleteClick)="deleteRecord($event)"></app-password-record>
+    (onEditClick)="editRecord($event)" (onDeleteClick)="deleteRecord($event)"></app-password-record>
 <div class="p-5 flex" *ngIf="!entries.length">
     <div class="record-info grow">
         <h1>{{queryError}}</h1>

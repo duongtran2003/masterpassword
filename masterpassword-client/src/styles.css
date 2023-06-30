@@ -5,9 +5,13 @@
 
 
 html {
-    height: 100%;
+    min-height: 100%;
 }
 body {
     background: rgb(255,113,25);
     background: linear-gradient(315deg, rgba(255,113,25,1) 0%, rgba(65,255,0,1) 100%);
+}
+
+app-root {
+    margin-bottom: 10rem;
 }

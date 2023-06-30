@@ -1,0 +1,29 @@
+<div class="p-5">
+    <div class="flex flex-col space-y-2 mb-4" *ngIf="isVisible">
+        <input #websiteField type="text" placeholder="Website"
+            class="bg-white border border-gray-400 focus:outline-none focus:border-blue-400 w-full p-2.5 rounded-lg"
+            (input)="onWebsiteInput(websiteField.value)"
+            [value]="websiteInput">
+        <input #nameField type="text" placeholder="Email or Username"
+            class="bg-white border border-gray-400 focus:outline-none focus:border-blue-400 w-full p-2.5 rounded-lg"
+            (input)="onNameInput(nameField.value)"
+            [value]="nameInput">
+        <input #passwordField type="password" placeholder="Password"
+            class="bg-white border border-gray-400 focus:outline-none focus:border-blue-400 w-full p-2.5 rounded-lg"
+            (input)="onPasswordInput(passwordField.value)"
+            [value]="passwordInput">
+    </div>
+    <ul *ngIf="validationError.length && isVisible" class="mb-4">
+        <li class="text-red-600 text-sm" *ngFor="let error of validationError">{{error}}</li>
+    </ul>
+    <div class="flex space-x-4 w-full">
+        <button (click)="onNewClick()"
+            class="grow text-black border-2 border-green-600 w-10 h-10 hover:bg-green-600 hover:text-white duration-150 focus:outline-none inline-block rounded-lg">
+            <fa-icon [icon]="newIcon"></fa-icon>
+        </button>
+        <button *ngIf="isVisible" (click)="onCancelClick()"
+            class="grow text-black border-2 border-red-600 w-10 h-10 hover:bg-red-600 hover:text-white duration-150 focus:outline-none inline-block rounded-lg">
+            <fa-icon [icon]="cancelIcon"></fa-icon>
+        </button>
+    </div>
+</div>
