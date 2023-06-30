@@ -15,6 +15,17 @@ export class MainWrapperComponent implements OnInit {
   ngOnInit(): void {
     this.fetchEntries();
   }
+  sortEntries() {
+    this.entries.sort((a: IPassword, b: IPassword): number => {
+      if (a.site < b.site) {
+        return -1;
+      }
+      if (a.site > b.site) {
+        return 1;
+      }
+      return 0;
+    });
+  }
   fetchEntries(): void {
     this.apiService.get('index').subscribe({
       next: (response: IPassword[]) => {
@@ -25,6 +36,7 @@ export class MainWrapperComponent implements OnInit {
           for (let entry of response) {
             this.entries.push(entry);
           }
+          this.sortEntries();
         }
       },
       error: (err) => {
@@ -46,12 +58,21 @@ export class MainWrapperComponent implements OnInit {
         //fire a toast message ( not implemented yet )
       }
     });
-    console.log(info);
   }
   createRecord(info: IPassword): void {
     this.apiService.post('create', info).subscribe({
       next: (response: IPassword) => {
-        this.entries.push(response);
+        let inserted: boolean = false;
+        for (let i = 0; i < this.entries.length; i++) {
+          if (this.entries[i].site == response.site) {
+            inserted = true;
+            this.entries.splice(i, 0, response);
+            break;
+          }
+        }
+        if (!inserted) {
+          this.entries.push(response);
+        }
       },
       error: (err) => {
         //fire a toast message ( not implemented yet )
