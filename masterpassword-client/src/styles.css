@@ -8,9 +8,7 @@ html {
     min-height: 100%;
 }
 body {
-    background: wheat;
-    width: 100%;
-    overflow: hidden;
+    background: skyblue
 }
 
 app-root {

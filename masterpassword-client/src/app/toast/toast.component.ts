@@ -30,11 +30,11 @@ export class ToastComponent implements OnInit {
   closeIcon = faCircleXmark;
   closeToast = setTimeout(() => {
     this.newToast.state = 'close';
-  }, 2700);
+  }, 2200);
 
   terminateToast = setTimeout(() => {
     this.destroyToast.emit(this.index);
-  }, 3000);
+  }, 2500);
 
   constructor(public toast: ToastService) { }
   ngOnInit(): void {
