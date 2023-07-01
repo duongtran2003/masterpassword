@@ -34,7 +34,7 @@ export class PasswordRecordComponent implements OnInit {
   isEditVisible: boolean = false;
   isDeleteVisible: boolean = false;
 
-  constructor(private clipboard: Clipboard, private toast: ToastService) {}
+  constructor(private clipboard: Clipboard, private toastService: ToastService) {}
   ngOnInit(): void {
     console.log("rendered");
   }
@@ -61,6 +61,11 @@ export class PasswordRecordComponent implements OnInit {
     this.onDeleteClick.emit(this.info);
   }
   copyPassword(): void {
+    this.toastService.makeToast({
+      state: 'close',
+      message: 'Copied to clipboard',
+      class: ['toastr', 'toastr-done']
+    })
     this.clipboard.copy(this.info.password);
   }
 }

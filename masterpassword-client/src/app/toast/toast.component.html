@@ -1,6 +1,6 @@
-<div>
-    <div style="max-width: 160px;">place holder</div>
-    <a class="close-btn cursor-pointer" (click)="dismiss()">
-        <small>Dismiss</small>
-    </a>
+<div [class]="newToast.class" [@toastTrigger]="newToast.state">
+    <div style="max-width: 250px;">{{newToast.message}}</div>
+    <div class="close-btn cursor-pointer text-xl" (click)="dismiss()">
+        <fa-icon [icon]="closeIcon"></fa-icon>
+    </div>
 </div>

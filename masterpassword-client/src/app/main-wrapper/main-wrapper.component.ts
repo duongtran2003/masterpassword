@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../api-service.service';
 import { IPassword } from '../IPassword';
 import { Observable } from 'rxjs';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-main-wrapper',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class MainWrapperComponent implements OnInit {
   entries: IPassword[] = [];
-  constructor(private apiService: ApiServiceService) { }
+  constructor(private apiService: ApiServiceService, private toastService: ToastService) { }
   queryError: string = "";
   ngOnInit(): void {
     this.fetchEntries();
@@ -41,12 +42,22 @@ export class MainWrapperComponent implements OnInit {
       },
       error: (err) => {
         this.queryError = "Server Error";
+        this.toastService.makeToast({
+          state: "close",
+          message: "Query Error",
+          class: ["toastr", "toastr-failed"],
+        })
       }
     });
   }
   editRecord(info: IPassword): void {
     this.apiService.put('update', info).subscribe({
       next: (response: IPassword) => {
+        this.toastService.makeToast({
+          state: "close",
+          message: "Record edited",
+          class: ["toastr", "toastr-success"]
+        })
         for (let entry of this.entries) {
           if (entry.site == response.site && entry.email == response.email) {
             entry.password = response.password;
@@ -55,13 +66,22 @@ export class MainWrapperComponent implements OnInit {
         }
       },
       error: (err) => {
-        //fire a toast message ( not implemented yet )
+        this.toastService.makeToast({
+          state: 'close',
+          message: "Server error",
+          class: ["toastr", "toastr-failed"]
+        })
       }
     });
   }
   createRecord(info: IPassword): void {
     this.apiService.post('create', info).subscribe({
       next: (response: IPassword) => {
+        this.toastService.makeToast({
+          state: "close",
+          message: "Record added",
+          class: ["toastr", "toastr-success"]
+        })
         let inserted: boolean = false;
         for (let i = 0; i < this.entries.length; i++) {
           if (this.entries[i].site == response.site) {
@@ -75,13 +95,32 @@ export class MainWrapperComponent implements OnInit {
         }
       },
       error: (err) => {
-        //fire a toast message ( not implemented yet )
+        console.log(err);
+        if (err.status == 500) {
+          this.toastService.makeToast({
+            state: 'close',
+            message: 'Server error',
+            class: ['toastr', 'toastr-failed'],
+          })
+        }
+        if (err.status == 409) {
+          this.toastService.makeToast({
+            state: 'close',
+            message: 'Duplicate. Creation aborted',
+            class: ['toastr', 'toastr-warning'],
+          })
+        }
       }
     });
   }
   deleteRecord(info: IPassword): void {
     this.apiService.post('delete', info).subscribe({
       next: (response: IPassword) => {
+        this.toastService.makeToast({
+          state: 'close',
+          message: 'Record deleted',
+          class: ['toastr', 'toastr-success'],
+        })
         for (let i = 0; i < this.entries.length; i++) {
           if (this.entries[i].site == response.site && this.entries[i].email == response.email) {
             this.entries.splice(i, 1);
@@ -93,7 +132,11 @@ export class MainWrapperComponent implements OnInit {
         }
       },
       error: (err) => {
-        //fire a toast message ( not implemented yet )
+        this.toastService.makeToast({
+          state: 'close',
+          message: 'Server error',
+          class: ['toastr', 'toastr-failed'],
+        })
       }
     });
   }

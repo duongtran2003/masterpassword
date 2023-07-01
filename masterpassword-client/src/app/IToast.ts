@@ -1,5 +1,5 @@
 export interface IToast {
-    isVisible: boolean,
+    state: string,
     message: string, 
     class: string[],
 }

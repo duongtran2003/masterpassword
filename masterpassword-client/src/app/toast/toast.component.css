@@ -2,9 +2,10 @@
     background-color: white;
     position: relative;
     right: 0rem;
-    margin: 2rem;
+    transform: translateX(200%);
+    margin-bottom: 1.25rem;
     display: inline-flex;
-    min-width: 260px;
+    min-width: 300px;
     min-height: 70px;
     max-height: 70px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.351);
@@ -28,4 +29,8 @@
 
 .toastr-failed {
     border-left: 6px solid red;
+}
+
+.toastr-done {
+    border-left: 6px solid rgba(49,130,206,1);
 }
