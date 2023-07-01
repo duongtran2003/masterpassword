@@ -20,6 +20,5 @@ export class ToastComponent implements OnInit{
   constructor(public toast: ToastService) {}
   ngOnInit(): void { }
   dismiss(): void {
-    this.toast.dismissToast();
   }
 }

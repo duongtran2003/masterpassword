@@ -9,6 +9,7 @@ import { PasswordRecordComponent } from './password-record/password-record.compo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreateFormComponent } from './create-form/create-form.component';
 import { ToastComponent } from './toast/toast.component';
+import { ToastWrapperComponent } from './toast-wrapper/toast-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ToastComponent } from './toast/toast.component';
     MainWrapperComponent,
     PasswordRecordComponent,
     CreateFormComponent,
-    ToastComponent
+    ToastComponent,
+    ToastWrapperComponent
   ],
   imports: [
     BrowserModule,

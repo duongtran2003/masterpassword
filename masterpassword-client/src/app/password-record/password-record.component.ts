@@ -45,7 +45,6 @@ export class PasswordRecordComponent implements OnInit {
     this.isDeleteVisible = !this.isDeleteVisible;
   }
   showEditRecord(): void {
-    this.toast.showToast(['toastr', 'toastr-success'], "test");
     this.isEditVisible = !this.isEditVisible;
   }
   editRecord(): void {
