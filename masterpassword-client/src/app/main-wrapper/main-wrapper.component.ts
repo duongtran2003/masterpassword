@@ -45,7 +45,7 @@ export class MainWrapperComponent implements OnInit {
         this.toastService.makeToast({
           state: "close",
           message: "Query Error",
-          class: ["toastr", "toastr-failed"],
+          barClass: ['bg-red-600'],
         })
       }
     });
@@ -56,7 +56,7 @@ export class MainWrapperComponent implements OnInit {
         this.toastService.makeToast({
           state: "close",
           message: "Record edited",
-          class: ["toastr", "toastr-success"]
+          barClass: ['bg-green-600'],
         })
         for (let entry of this.entries) {
           if (entry.site == response.site && entry.email == response.email) {
@@ -69,7 +69,7 @@ export class MainWrapperComponent implements OnInit {
         this.toastService.makeToast({
           state: 'close',
           message: "Server error",
-          class: ["toastr", "toastr-failed"]
+          barClass: ['bg-red-600'],
         })
       }
     });
@@ -80,7 +80,7 @@ export class MainWrapperComponent implements OnInit {
         this.toastService.makeToast({
           state: "close",
           message: "Record added",
-          class: ["toastr", "toastr-success"]
+          barClass: ['bg-green-600'],
         })
         let inserted: boolean = false;
         for (let i = 0; i < this.entries.length; i++) {
@@ -100,14 +100,14 @@ export class MainWrapperComponent implements OnInit {
           this.toastService.makeToast({
             state: 'close',
             message: 'Server error',
-            class: ['toastr', 'toastr-failed'],
+            barClass: ['bg-red-600'],
           })
         }
         if (err.status == 409) {
           this.toastService.makeToast({
             state: 'close',
             message: 'Duplicate. Creation aborted',
-            class: ['toastr', 'toastr-warning'],
+            barClass: ['bg-yellow-400'],
           })
         }
       }
@@ -119,7 +119,7 @@ export class MainWrapperComponent implements OnInit {
         this.toastService.makeToast({
           state: 'close',
           message: 'Record deleted',
-          class: ['toastr', 'toastr-success'],
+          barClass: ['bg-green-600'],
         })
         for (let i = 0; i < this.entries.length; i++) {
           if (this.entries[i].site == response.site && this.entries[i].email == response.email) {
@@ -135,7 +135,7 @@ export class MainWrapperComponent implements OnInit {
         this.toastService.makeToast({
           state: 'close',
           message: 'Server error',
-          class: ['toastr', 'toastr-failed'],
+          barClass: ['bg-red-600'],
         })
       }
     });

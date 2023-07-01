@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { ToastService } from '../toast.service';
 import { IToast } from '../IToast';
@@ -22,10 +22,12 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
     ])
   ]
 })
-export class ToastComponent implements OnInit {
+export class ToastComponent implements OnInit, AfterViewInit {
   @Input() index!: number;
   @Input() newToast!: IToast;
   @Output() destroyToast = new EventEmitter();
+  @ViewChild('bar') bar!: ElementRef;
+
 
   closeIcon = faCircleXmark;
   closeToast = setTimeout(() => {
@@ -36,11 +38,17 @@ export class ToastComponent implements OnInit {
     this.destroyToast.emit(this.index);
   }, 2500);
 
-  constructor(public toast: ToastService) { }
+  constructor(public toast: ToastService) {
+  }
   ngOnInit(): void {
     this.newToast.state = 'open';
-    this.closeToast;
-    this.terminateToast;
+    // this.closeToast;
+    // this.terminateToast;
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.bar.nativeElement.style.width = "0%";
+    }, 250);
   }
   dismiss(): void {
     clearTimeout(this.closeToast);

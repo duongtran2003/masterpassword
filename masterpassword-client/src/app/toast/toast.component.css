@@ -4,33 +4,23 @@
     right: 0rem;
     transform: translateX(200%);
     margin-bottom: 1.25rem;
-    display: inline-flex;
+    display: flex;
     min-width: 300px;
-    min-height: 70px;
-    max-height: 70px;
+    min-height: 60px;
+    max-height: 80px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.351);
-
-    flex-flow: row nowrap;
-    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
     justify-content: space-between;
-    border-left: 6px solid black;
-    padding: 1.5rem;
-    border-radius: 4px;
+    /* border-left: 6px solid black; */
+    border-radius: 8px;
     font-size: 0.9rem;
 }
 
-.toastr-success {
-    border-left: 6px solid rgb(0, 181, 0);
+.progress-bar {
+    width: 100%;
+    transition-duration: 1950ms;
+    transition-timing-function: linear;
+    height: 5px;
 }
 
-.toastr-warning {
-    border-left: 6px solid rgb(255, 166, 0);
-}
-
-.toastr-failed {
-    border-left: 6px solid red;
-}
-
-.toastr-done {
-    border-left: 6px solid rgba(49,130,206,1);
-}

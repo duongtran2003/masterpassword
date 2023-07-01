@@ -64,7 +64,7 @@ export class PasswordRecordComponent implements OnInit {
     this.toastService.makeToast({
       state: 'close',
       message: 'Copied to clipboard',
-      class: ['toastr', 'toastr-done']
+      barClass: ['bg-blue-600']
     })
     this.clipboard.copy(this.info.password);
   }
