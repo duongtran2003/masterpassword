@@ -11,7 +11,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./toast.component.css'],
   animations: [
     trigger('toastTrigger', [
-      state('open', style({ transform: 'translateX(0%)' })),
+      state('open', style({ transform: 'translateX(-5%)' })),
       state('close', style({ transform: 'translateX(200%)' })),
       transition('* => close', [
         animate('300ms ease-in-out')
